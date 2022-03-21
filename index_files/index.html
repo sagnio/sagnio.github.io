@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://checktrust.ru/manual/miralinks.html -->
+<html lang="ru-RU" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript">
+    (function() {
+      var container = document.querySelector('#_tcx-vvgpncrrpos');
+      if (!container) {
+        return;
+      }
+
+      function addToContainer(url, text) {
+        const wrapper = document.createElement('div');
+        wrapper.setAttribute('data-tcx-url', url);
+        wrapper.innerText = text;
+        container.appendChild(wrapper);
+      }
+
+      const fetch = window.fetch
+      window.fetch = function() {
+        return Promise.resolve(fetch.apply(window, arguments))
+            .then(async response => {
+              if (response.ok) {
+                try {
+                  const clone = response.clone();
+                  const json = await clone.json();
+                  addToContainer(clone.url, JSON.stringify(json));
+                } catch (err) {}
+              }
+              return response;
+            });
+      };
+
+      var XHR = XMLHttpRequest.prototype;
+      var send = XHR.send;
+      var open = XHR.open;
+      XHR.open = function(method, url) {
+        this.url = url;
+        return open.apply(this, arguments);
+      };
+      XHR.send = function() {
+        this.addEventListener('load', function() {
+          try {
+            const response = this.response;
+            if (response && response.length) {
+              const firstChar = response[0];
+              if (firstChar === '[' || firstChar === '{') {
+                addToContainer(this.url, response);
+              }
+            }
+          } catch (err) {
+            // No-op.
+          }
+        });
+        return send.apply(this, arguments);
+      };
+    })();
+  </script>
+    
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async="" src="./index_files/analytics.js.Без названия"></script><script async="" src="./index_files/tag.js.Без названия"></script><script type="text/javascript" async="" src="./index_files/recaptcha__ru.js.Без названия" crossorigin="anonymous" integrity="sha384-JO1y0ZMcNk2+5lQo1lreM0ZDqXDPb/Z6+n6kTvqM+t+Hh6jobX/SxZQcXfgCl+HO"></script><script type="text/javascript" src="./index_files/jquery.min.js.Без названия"></script>
+<script type="text/javascript" src="./index_files/jquery.yiiactiveform.js.Без названия"></script>
+<script type="text/javascript" src="./index_files/api.js.Без названия" async="async" defer="defer"></script>
+<title>Как экспортировать все площадки из биржи Miralinks.ru и проверить их качество - мануалы CheckTrust.ru</title>
+<meta name="description" content="Инструкция, как при помощи специального скрипта экспортировать всех доноров из Miralinks.ru, проверить их качество в сервисе CheckTrust.Ru и составить список для покупки хороших ссылок">
+<link rel="canonical" href="https://checktrust.ru/manual/miralinks.html">
+<link rel="shortcut icon" href="https://checktrust.ru/favicon.ico">
+<meta name="yandex-verification" content="75c4f2b0ceba863d">
+<meta name="google-site-verification" content="KUizxS1A5bFUJpug6olhNE-ZBmUXq0nviD2FV24it5I">
+<link href="./index_files/core.min.css" rel="stylesheet">
+<link href="./index_files/style.css" rel="stylesheet">
+<link href="./index_files/form-wizard.css" rel="stylesheet" type="text/css" media="screen">
+<link href="./index_files/msgGrowl.css" rel="stylesheet" type="text/css">
+<link href="./index_files/css2" rel="stylesheet">
+<meta property="og:title" content="Как экспортировать все площадки из биржи Miralinks.ru и проверить их качество - мануалы CheckTrust.ru">
+<meta property="og:site_name" content="CheckTrust">
+<meta property="og:url" content="https://checktrust.ru/manual/miralinks.html">
+<meta property="og:description" content="Инструкция, как при помощи специального скрипта экспортировать всех доноров из Miralinks.ru, проверить их качество в сервисе CheckTrust.Ru и составить список для покупки хороших ссылок">
+<meta property="og:image" content="https://checktrust.ru/share-logo.png">
+<meta property="fb:admins" content="100001534897926">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@victimalex">
+<meta name="twitter:creator" content="@victimalex">
+<meta name="twitter:description" content="Инструкция, как при помощи специального скрипта экспортировать всех доноров из Miralinks.ru, проверить их качество в сервисе CheckTrust.Ru и составить список для покупки хороших ссылок">
+<link rel="icon" href="https://checktrust.ru/favicon.svg" type="image/svg">
+<link rel="apple-touch-icon" sizes="180x180" href="https://checktrust.ru/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://checktrust.ru/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://checktrust.ru/favicon-16x16.png">
+<link rel="manifest" href="https://checktrust.ru/site.webmanifest">
+<link rel="mask-icon" href="https://checktrust.ru/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style><style>.g_position{color: #fff; padding: .5rem; position: absolute; top: -7px; left: -43px; width: 12px; height: 12px; border-radius: 50%; text-align: center; line-height: 13px; font-weight: 600; font-size: 11px; background: #20adff}</style><style>a.broken_link{box-shadow: 0 0 20px 4px red!important; background: red!important; color: #fff!important; padding: .3em!important; border-radius: .25em;}a.outer_link{box-shadow: 0 0 20px 4px #ffeb00!important; background:  #ffeb00!important; color: #222!important; padding: .3em!important; border-radius: .25em;}a.inner_link{box-shadow: 0 0 20px 4px #a2d626!important; background:  #a2d626!important; color: #222!important; padding: .3em!important; border-radius: .25em;}a.outer_link.broken_link{box-shadow: 0 0 20px 4px #ffeb00!important; background:  #ffeb00!important; color: #222!important; padding: .3em!important; border-radius: .25em!important; border: solid 2px red!important;}a.inner_link.broken_link{box-shadow: 0 0 20px 4px #a2d626!important; background:  #a2d626!important; color: #222!important; padding: .3em!important; border-radius: .25em!important; border-radius: .25em!important; border: solid 2px red!important;}</style></head>
+
+<body class="tour-page manual-page vsc-initialized">
+
+
+<div role="main">
+  <div class="container">
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="navbar-inner-mobile">
+        <a href="https://checktrust.ru/" class="navbar-inner-logo">
+          <img src="./index_files/logo-short-color.svg" class="navbar-inner-logo__image" alt="">
+        </a>
+        <div class="navbar-inner-mobile__actions">
+                    <a class="btn btn-success" href="https://checktrust.ru/user/register.html">
+                        Зарегистрироваться
+                      </a>
+                    <a class="navbar-inner-mobile__toggle collapsed" data-toggle="collapse" data-target=".nav-collapse">
+            <svg viewBox="0 0 100 80">
+              <rect width="100" height="20" rx="8"></rect>
+              <rect y="30" width="100" height="20" rx="8"></rect>
+              <rect y="60" width="100" height="20" rx="8"></rect>
+            </svg>
+          </a>
+                    <a class="navbar-inner-mobile__login" href="https://checktrust.ru/session/login2.html">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sign-in-alt" class="svg-inline--fa fa-sign-in-alt fa-w-16" role="img" viewBox="0 0 512 512">
+              <path fill="currentColor" d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>
+            </svg>
+          </a>
+                            </div>
+      </div>
+
+      <div class="nav-collapse collapse">
+                <a href="https://checktrust.ru/" class="home-icon pull-left">
+          <img src="./index_files/logo-full-color.svg" alt="Home Icon" width="150">
+        </a>
+                <ul class="nav">
+          <li class="active">
+            <a href="https://checktrust.ru/tour.html">
+              О сервисе
+            </a>
+            </li>
+            <li>
+              <a href="https://checktrust.ru/pricing.html">
+                Тарифы
+              </a>
+              </li>
+              <li>
+                <a href="https://checktrust.ru/pulse-meter.html">
+                  Пульс бирж
+                </a>
+                </li>
+                <li>
+                  <a href="https://checktrust.ru/reviews">
+                    Отзывы
+                  </a>
+                  </li>
+                  <li>
+                    <a href="https://checktrust.ru/manual/miralinks.html#">Инструменты <i class="icon-caret-down"></i></a>
+                    <ul class="tools-list" style="z-index: 1;">
+                      <li>
+                        <a href="https://checktrust.ru/backlinks-checker.html" title="Backlinks Checker">
+                          Проверка качества обратных ссылок
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://checktrust.ru/baryga-checker.html" title="Барыга Чекер">
+                          Проверка «продажности» сайтов <sup><b>free!</b></sup>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://checktrust.ru/crowd-links-checker.html" title="Crowd Links Checker">
+                          Проверка наличия крауд-ссылок <sup><b>free!</b></sup>
+                        </a>
+                      </li>
+                    </ul>
+                    </li>
+        </ul>
+        <ul class="nav pull-right">
+                    <li>
+                        <a href="https://checktrust.ru/user/register.html">
+              Регистрация
+            </a>
+                      </li>
+          <li>
+            <a href="https://checktrust.ru/session/login2.html">
+              Войти
+            </a>
+          </li>
+                  </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+  <!-- Navbar -->
+</div>
+<script>
+$(document).ready(() => {
+  $('.navbar-inner-mobile__profile__toggle, .navbar-inner__profile__toggle').click(function() {
+    $(this).parent().toggleClass('open');
+  });
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('.navbar-inner-mobile__profile').length) {
+      $('.navbar-inner-mobile__profile').removeClass('open')
+    }
+    if (!$(e.target).closest('.navbar-inner__profile').length) {
+      $('.navbar-inner__profile').removeClass('open')
+    }
+  });
+})
+</script>
+    <div class="row">
+      <div class="span12">
+        <header>
+          <h1>Как выгрузить все площадки из биржи Miralinks.ru и проверить качество доноров перед покупкой ссылок</h1>
+        </header>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span12">
+                <style><!--
+.tour-page article ul {margin-left:25px;list-style:circle;}
+.tour-page article img {margin: 15px auto;padding:0;display: block;border:1px solid #c4c4c4;max-width:80%;max-height:700px;}
+--></style>
+<article>
+<div class="container">
+<div class="row">
+<div class="span12">
+<p>Биржа Miralinks не предоставляет API для управления аккаунтом и не идет ни на какое сотруничество с нами (полагаю, что и со всеми остальными тоже). Также у биржи нет возможности экспортировать каталог площадок. Поэтому остается либо довольствоваться теми данными, что предоставляет сама биржа, либо бороться с наложенными ограничениями. Мы за второй вариант! И специально для вас подготовили js-скрипт, который автоматически пролистает все страницы каталога, сохранит все ссылки на представленные сайты и подготовит для вас список.</p>
+<p>Все очень просто, вам нужно совершить всего несколько шагов, описанных ниже.</p>
+<h2>Экспорт списка площадок из биржи</h2>
+<p>Авторизуйтесь и заходите в свой аккаунт. Сразу можно переходить к списку площадок, даже если у вас не создано ни одного проекта.</p>
+<img src="./index_files/miralinks-1.png" alt="">
+<p>Рекомендуем вам настроить фильтрацию, заранее указав требуемые параметры (например, ИКС, кол-во страниц в индексе, возможно, тематику, но главное - стоимость, незачем проверять площадки, на которых вы точно не будете размещаться). Скорость парсинга каталога площадок зависит от количества страниц, помните об этом. Рассчет следующий: 1 страница = 10 секунд. При этом существует вероятность блокировки на время, если система заподозрит автоматизацию действий.</p>
+<p>Итак, находясь на странице со списком площадок в Miralinks, необходимо нажать клавишу F12, чтобы открыть панель разработчика, и выбрать вкладку "Консоль".</p>
+<img src="./index_files/miralinks-2.png" alt="">
+<p>Предварительно можно очистить содержимое консоли, если она не пустая, нажав на иконку мусорной корзины. В первую строку, обозначенную двойной слелкой, вставляем следующий скрипт:</p>
+<pre>var links = '';
+$('.page-controls:eq(0) .pages a[data-bind=50]').click();
+setTimeout(function(){parser = setInterval(function() {
+    $('.dataTable:eq(0) .popover-wrapper a:not(.external-link):not(.withoutExternalLink)').each(function() {
+        links += $(this).text() + '\n';
+    });
+    var pagen = $('.page-controls:eq(0) a.next.paginate_button:not(.paginate_button_disabled)').eq(0);
+    if(pagen.length==0){
+        console.log(links);
+        clearInterval(parser);
+    }else{
+        pagen.click();
+    }
+}, 10000);}, 2000);</pre>
+<p>Получится так:</p>
+<img src="./index_files/miralinks-3.png" alt="">
+<p>Нажимаем Enter и смотрим, как скрипт сам будет перелистывать страницы и сохранять в память ссылки на сайты из каталога площадок.</p>
+<p>Пока скрипт не дойдет до последней страницы, он не выдаст результат. Но если необходимо вывести данные в процессе работы скрипта, пишем в консоль команду: <code>console.log(links);</code></p>
+<p>Когда скрипт дойдет до последней страниц, он заваршит свою работу и выведет в консоль все собранные ссылки:</p>
+<img src="./index_files/miralinks-4.png" alt="">
+<p>Делаем правый клик на списке ссылок, выбираем пункт "Выделить все", а затем на клавиатуре ctrl+c.</p>
+<p>Полученный список можно вставить в блокнот или эксель, чтобы предварительно изучить, а также убедиться, что там нет ничего лишнего (обычно в самом начале и конце могет встречаться служебная информация, ее стоит удалить). Наш скрипт в процессе парсинга пропускает площадки, url которых скрыт, поэтому итоговое количество строк в списке может отличаться от того количества площадок, которое обозначено в интерфейсе биржи.</p>
+<p>Дальше со списком ссылок мы будем рабоать в CheckTrust.</p>
+<h2>Проверка списка площадок в CheckTrust</h2>
+<p>Теперь авторизуйтесь в личном кабинете Чектраста, выбирайте "Новый проект" в меню и проект типа "Проверка произвольных ссылок".</p>
+<img src="./index_files/miralinks-5.png" alt="">
+<p>Полученный из биржи список площадок можно вставить сразу в окошко, не используя файл (скажу по секрету - ограничение в 1000 строк в окошке намного больше, но 1 млн. строк туда вставлать я все же не рекомендую).</p>
+<img src="./index_files/miralinks-6.png" alt="">
+<p>Дальше вы все знаете сами: отмечаете нужные параметры и создаете проект. За несколько минут он полностью обработается. На этом этапе многих будет ждать расстройство, потому что большинство площадок, отмеченных биржей как супер качественные (Miralinks Rating = 100), будут иметь Траст &lt; 10! Понятно, что площадки, цена размещения на которых от 3000р и выше будут иметь средний или высокий траст, но почему тогда площадки за 200р и 10000р имеют рейтинг системы 100%? Нам эта система не понятна.</p>
+<p>Это наше личное мнение и вы можете его не разделять. Да и потом, мы всего лишь рассказываем о том, как выгрузить площадки и проверить их качество.</p>
+<h2>Создание списка качественных площадок</h2>
+<p>Прямо в проекте в Чектрасте вы можете применить фильтр "Хорошие доноры" (в эту выборку попадут также и отличные доноры) и сразу же сделать экспорт списка по фильтру:</p>
+<img src="./index_files/miralinks-7.png" alt="">
+<p>В полученном при экспорте файле выделяем первую колонку "Хост" и копируем в буфер (ctrl+c). Возвращаемся в аккаунт биржи и выбираем пункт меню "Списки площадок".</p>
+<img src="./index_files/miralinks-8.png" alt="">
+<p>Заходим в список "Избранное" и нажимаем кнопку "Добавить адреса". Вставляем наш список и сохраняем.</p>
+<p>Теперь в каталоге площадок и при работе с проектами в Miralinks единственная настройка, которую вам стоит выбирать - Выбрать площадки из списка "Избранное".</p>
+<img src="./index_files/miralinks-9.png" alt="">
+<p>Дальше вы можете работать с системой и покупать ссылки, как вы всегда это делали - выбираете площадки и заказываете размещение!</p>
+<p>Теперь вы будете размещать свои ссылки только на качественных площадках!</p>
+<h2>В качестве послесловия</h2>
+<p>Где-то раз в месяц можно выгружать список новых площадок, благо соответствующий фильтр поиска есть, и его анализировать, тем самым держа свою базу всегда в актуальном состоянии.</p>
+<p>Спасибо за внимание и до новых встреч.</p>
+</div>
+</div>
+<div class="socials socials_type_list">
+            <strong class="socials__message">Спасибо, что поделились ссылкой в соц.сетях!</strong>
+                <a target="_blank" class="socials__social vk" href="https://vk.com/share.php?url=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html"><svg><use xlink:href="#icon-social-vk"></use></svg></a>            <a target="_blank" class="socials__social facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html"><svg><use xlink:href="#icon-social-facebook"></use></svg></a>            <a target="_blank" class="socials__social ok" href="https://connect.ok.ru/offer?url=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html&amp;title=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D1%82%D1%8C+%D0%B2%D1%81%D0%B5+%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8+%D0%B8%D0%B7+%D0%B1%D0%B8%D1%80%D0%B6%D0%B8+Miralinks.ru+%D0%B8+%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C+%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE+%D0%B4%D0%BE%D0%BD%D0%BE%D1%80%D0%BE%D0%B2+%D0%BF%D0%B5%D1%80%D0%B5%D0%B4+%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%BE%D0%B9+%D1%81%D1%81%D1%8B%D0%BB%D0%BE%D0%BA"><svg><use xlink:href="#icon-social-ok"></use></svg></a>            <a target="_blank" class="socials__social whatsapp" href="https://api.whatsapp.com/send?text=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html"><svg><use xlink:href="#icon-social-whatsapp"></use></svg></a>            <a target="_blank" class="socials__social twitter" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html&amp;title=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D1%82%D1%8C+%D0%B2%D1%81%D0%B5+%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8+%D0%B8%D0%B7+%D0%B1%D0%B8%D1%80%D0%B6%D0%B8+Miralinks.ru+%D0%B8+%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C+%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE+%D0%B4%D0%BE%D0%BD%D0%BE%D1%80%D0%BE%D0%B2+%D0%BF%D0%B5%D1%80%D0%B5%D0%B4+%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%BE%D0%B9+%D1%81%D1%81%D1%8B%D0%BB%D0%BE%D0%BA"><svg><use xlink:href="#icon-social-twitter"></use></svg></a>            <a target="_blank" class="socials__social telegram" href="https://telegram.me/share/url?url=https%3A%2F%2Fchecktrust.ru%2Fmanual%2Fmiralinks.html&amp;text=%D0%9A%D0%B0%D0%BA+%D0%B2%D1%8B%D0%B3%D1%80%D1%83%D0%B7%D0%B8%D1%82%D1%8C+%D0%B2%D1%81%D0%B5+%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8+%D0%B8%D0%B7+%D0%B1%D0%B8%D1%80%D0%B6%D0%B8+Miralinks.ru+%D0%B8+%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C+%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE+%D0%B4%D0%BE%D0%BD%D0%BE%D1%80%D0%BE%D0%B2+%D0%BF%D0%B5%D1%80%D0%B5%D0%B4+%D0%BF%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%BE%D0%B9+%D1%81%D1%81%D1%8B%D0%BB%D0%BE%D0%BA"><svg><use xlink:href="#icon-social-telegram"></use></svg></a>    </div>
+</div>
+</article>      </div>
+    </div>
+      </div>
+</div>
+<svg display="none">
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-facebook" viewBox="0 0 320 512">
+        <path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-ok" viewBox="0 0 320 512">
+        <path fill="currentColor" d="M275.1 334c-27.4 17.4-65.1 24.3-90 26.9l20.9 20.6 76.3 76.3c27.9 28.6-17.5 73.3-45.7 45.7-19.1-19.4-47.1-47.4-76.3-76.6L84 503.4c-28.2 27.5-73.6-17.6-45.4-45.7 19.4-19.4 47.1-47.4 76.3-76.3l20.6-20.6c-24.6-2.6-62.9-9.1-90.6-26.9-32.6-21-46.9-33.3-34.3-59 7.4-14.6 27.7-26.9 54.6-5.7 0 0 36.3 28.9 94.9 28.9s94.9-28.9 94.9-28.9c26.9-21.1 47.1-8.9 54.6 5.7 12.4 25.7-1.9 38-34.5 59.1zM30.3 129.7C30.3 58 88.6 0 160 0s129.7 58 129.7 129.7c0 71.4-58.3 129.4-129.7 129.4s-129.7-58-129.7-129.4zm66 0c0 35.1 28.6 63.7 63.7 63.7s63.7-28.6 63.7-63.7c0-35.4-28.6-64-63.7-64s-63.7 28.6-63.7 64z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-telegram" viewBox="0 0 448 512">
+        <path fill="currentColor" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-vk" viewBox="0 0 576 512">
+        <path fill="currentColor" d="M545 117.7c3.7-12.5 0-21.7-17.8-21.7h-58.9c-15 0-21.9 7.9-25.6 16.7 0 0-30 73.1-72.4 120.5-13.7 13.7-20 18.1-27.5 18.1-3.7 0-9.4-4.4-9.4-16.9V117.7c0-15-4.2-21.7-16.6-21.7h-92.6c-9.4 0-15 7-15 13.5 0 14.2 21.2 17.5 23.4 57.5v86.8c0 19-3.4 22.5-10.9 22.5-20 0-68.6-73.4-97.4-157.4-5.8-16.3-11.5-22.9-26.6-22.9H38.8c-16.8 0-20.2 7.9-20.2 16.7 0 15.6 20 93.1 93.1 195.5C160.4 378.1 229 416 291.4 416c37.5 0 42.1-8.4 42.1-22.9 0-66.8-3.4-73.1 15.4-73.1 8.7 0 23.7 4.4 58.7 38.1 40 40 46.6 57.9 69 57.9h58.9c16.8 0 25.3-8.4 20.4-25-11.2-34.9-86.9-106.7-90.3-111.5-8.7-11.2-6.2-16.2 0-26.2.1-.1 72-101.3 79.4-135.6z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-whatsapp" viewBox="0 0 448 512">
+        <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" id="icon-social-twitter" viewBox="0 0 448 512">
+        <path xmlns="http://www.w3.org/2000/svg" fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+    </symbol>
+</svg>
+<style>
+    .feedback {
+        max-width: 350px;
+        width: 100%;
+        position: fixed;
+        bottom: 120px;
+        right: -100%;
+        z-index: 1040;
+        background: white;
+        box-shadow: 0 0 10px rgba(32, 32, 32, .5);
+        border-radius: 6px;
+        transition: right .5s;
+    }
+
+    .feedback .form-group .form-control {
+        width: 100%;
+    }
+
+    .feedback.show {
+        right: 50px;
+    }
+
+    .feedback__inside {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .feedback__message {
+        font-size: 16px;
+    }
+
+    .feedback__inside__view:not(:first-child) {
+        position: absolute;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+        left: 100%;
+        background: #fff;
+        right: 0;
+        transition: left .5s;
+        top: 0;
+        bottom: 0;
+    }
+
+    .feedback__inside__view.show:not(:first-child) {
+        left: 0;
+    }
+
+    .feedback__inside__view-header {
+        position: relative;
+    }
+
+    .feedback__inside__view-header__close {
+        position: absolute;
+        left: 10px;
+        background: none;
+        font-size: 18px;
+        color: #fff;
+        border: none;
+        -webkit-appearance: none;
+    }
+
+    .feedback__inside__view-header__close i {
+        margin-right: 0;
+    }
+
+    .form-control {
+        margin-bottom: 0 !important;
+    }
+
+    .feedback__inside__view-header {
+        padding: 15px 0;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #428BCA;
+        font-weight: bold;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 6px 6px 0 0;
+    }
+
+
+    .feedback__inside__view:not(:first-child) .feedback__inside__view-body__inside {
+        padding: 15px;
+    }
+
+    .feedback__inside__view-body {
+        height: 436px;
+        overflow: auto;
+    }
+
+    .feedback__inside__view-body__inside-list__action {
+        display: block;
+        width: 100%;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid rgba(32, 32, 32, .2);
+        text-align: left;
+        -webkit-appearance: none;
+        padding: 15px;
+        margin: 0;
+        background: none;
+        transition: background-color .5s;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 24px;
+    }
+
+    .feedback__inside__view-body__inside-list__action:hover {
+        background-color: #F2F2F2;
+    }
+
+    .feedback__inside__view:first-child .feedback__inside__view-header__close {
+        right: 10px;
+        left: initial;
+    }
+
+    #feedback-success-send.feedback__inside__view.show .feedback__inside__view-body {
+        display: -webkit-flex;
+        text-align: center;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        align-items: center;
+        color: #5bb75b;
+        justify-content: center;
+    }
+
+    #feedback-success-send.feedback__inside__view.show .feedback__inside__view-body i {
+        font-size: 112px;
+        margin-bottom: 36px;
+        display: block;
+    }
+
+    #feedback-success-send.feedback__inside__view.show .feedback__inside__view-body p {
+        font-size: 16px;
+        color: #5bb75b;
+        font-weight: bold;
+    }
+
+
+    .floating-button {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        height: 50px;
+        width: 50px;
+        padding: 0;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        -webkit-align-items: center;
+        -moz-box-align: center;
+        text-shadow: none !important;
+        -ms-flex-align: center;
+        align-items: center;
+        border-radius: 50%;
+        line-height: 0 !important;
+        justify-content: center;
+        outline: none !important;
+        border: none !important;
+        box-shadow: 0 0 10px rgba(32, 32, 32, .5);
+        transition: bottom .5s;
+    }
+
+    .floating-button i {
+        font-size: 28px;
+        border-radius: 50%;
+        display: block;
+                margin: 3px 0 0;
+            }
+
+    .floating-button.large-button {
+        width: calc(100% - 40px);
+        background-color: #428BCA;
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        left: 20px;
+        right: 15px;
+        z-index: 1040;
+        bottom: 20px;
+    }
+
+    .floating-button.button-success {
+        background-color: #5bb75b;
+    }
+
+    @media (min-width: 576px) {
+        .floating-button.show-xs {
+            display: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .feedback__inside {
+            height: 100%;
+        }
+
+        .feedback__inside__view-body {
+            height: 100%;
+        }
+
+        .feedback__inside__view:first-child .feedback__inside__view-header__close {
+            visibility: visible;
+        }
+
+        .feedback__inside__view-header {
+            border-radius: 0;
+        }
+
+        .feedback {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .feedback.show {
+        right: 0;
+        }
+    }
+</style>
+<div class="feedback" id="feedback-helper">
+    <div class="feedback__inside">
+        <div class="feedback__inside__view">
+            <div class="feedback__inside__view-header">
+                <button class="feedback__inside__view-header__close" id="feedback-close-view" name="yt0" type="button"><i class="icon-remove"></i></button>                <span class="feedback__inside__view-header__title">Обратная связь</span>
+            </div>
+            <div class="feedback__inside__view-body">
+                <div class="feedback__inside__view-body__inside">
+                    <div class="feedback__inside__view-body__inside-list">
+                                                                                <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="problem-registration" title="Проблема с регистрацией" name="yt1" type="button">Проблема с регистрацией</button>                                                                                <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="problem-payment" title="Проблема с оплатой" name="yt2" type="button">Проблема с оплатой</button>                                                                                <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="question-by-api" title="Вопрос по API " name="yt3" type="button">Вопрос по API </button>                                                                                <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="question-about-service" title="Вопрос по работе сервиса" name="yt4" type="button">Вопрос по работе сервиса</button>                                                                                <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="cooperation" title="Сотрудничество" name="yt5" type="button">Сотрудничество</button>                                                                                                            <button class="feedback__inside__view-body__inside-list__action" id="feedback-type-show" data-target="other" title="Другой вопрос" name="yt6" type="button">Другой вопрос</button>                                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="feedback__inside__view" id="feedback-form">
+            <div class="feedback__inside__view-header">
+                <button class="feedback__inside__view-header__close" id="feedback-close-view" name="yt7" type="button"><i class="icon-arrow-left"></i></button>                <span class="feedback__inside__view-header__title"></span>
+            </div>
+            <div class="feedback__inside__view-body">
+                <div class="feedback__inside__view-body__inside">
+                    <form style="margin:0" id="yw0" action="https://checktrust.ru/feedback/frontend/feedback/create" method="post">                                        <input id="feedback-type" name="FeedbackCreateForm[type]" type="hidden">                    <span class="help-block" id="FeedbackCreateForm_type_em_" style="display:none"></span>                    <p id="message-feedback" class="feedback__message"></p>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="E-mail" value="" name="FeedbackCreateForm[email]" id="FeedbackCreateForm_email" type="email">                        <span class="help-block" id="FeedbackCreateForm_email_em_" style="display:none"></span>                    </div>
+                                            <div class="form-group" style="position: relative" id="feedback-form-phone">
+                            <div class="input-prepend">
+                                <span class="add-on">+</span>
+                                <input class="form-control" placeholder="79051234567" name="FeedbackCreateForm[phoneNumber]" id="FeedbackCreateForm_phoneNumber" type="tel" maxlength="13">                            </div>
+                            <span class="help-block" id="FeedbackCreateForm_phoneNumber_em_" style="display:none"></span>                        </div>
+                                        <div class="form-group" id="feedback-form-content">
+                        <textarea class="form-control" placeholder="Сообщение" name="FeedbackCreateForm[content]" id="FeedbackCreateForm_content"></textarea>                        <span class="help-block" id="FeedbackCreateForm_content_em_" style="display:none"></span>                    </div>
+                    <div class="form-group">
+                                                <div id="FeedbackCreateForm_recaptchapopup"><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" src="./index_files/anchor.html" width="304" height="78" role="presentation" name="a-699400go6x0e" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;" src="./index_files/saved_resource(1).html"></iframe></div><input id="FeedbackCreateForm_recaptchapopup" name="FeedbackCreateForm[recaptcha]" type="hidden">                        <span class="help-block" id="FeedbackCreateForm_recaptcha_em_" style="display:none"></span>                    </div>
+                                        <input class="btn btn-primary" type="submit" name="yt8" value="Отправить" id="yt8">                    </form>                </div>
+            </div>
+        </div>
+        <div class="feedback__inside__view" id="feedback-success-send">
+            <div class="feedback__inside__view-header">
+                <button class="feedback__inside__view-header__close" id="feedback-close-view" name="yt9" type="button"><i class="icon-arrow-left"></i></button>                <span class="feedback__inside__view-header__title">Ваше обращение отправлено!</span>
+            </div>
+            <div class="feedback__inside__view-body">
+                <div class="feedback__inside__view-body__inside">
+                    <i class="icon-thumbs-up"></i>
+                    <p>Мы свяжемся с вами в течение рабочего дня.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" id="btn-floating-feedback" data-toggle="modal" data-target="#feedback-modal" class="floating-button btn-flat btn-primary">
+    <i class="icon-question-sign"></i>
+</button>
+
+<script>
+    const messagesTypes = {"problem-registration":"\u041d\u0435 \u043f\u0435\u0440\u0435\u0436\u0438\u0432\u0430\u0439\u0442\u0435 \u0435\u0441\u043b\u0438 \u0432\u0430\u043c \u043d\u0435 \u043f\u0440\u0438\u0445\u043e\u0434\u0438\u0442 SMS \u0438\u043b\u0438 \u043f\u0438\u0441\u044c\u043c\u043e \u043d\u0430 \u043f\u043e\u0447\u0442\u0443, \u043c\u044b \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u0443\u0435\u043c \u0432\u0430\u0441 \u0432\u0440\u0443\u0447\u043d\u0443\u044e. \u0423\u043a\u0430\u0436\u0438\u0442\u0435 \u0432\u0430\u0448 e-mail \u0438 \u043d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0430, \u0430 \u0432 \u043e\u0442\u0432\u0435\u0442\u043d\u043e\u043c \u043f\u0438\u0441\u044c\u043c\u0435 \u043c\u044b \u043f\u0440\u0438\u0448\u043b\u0435\u043c \u0432\u0430\u043c \u043f\u0430\u0440\u043e\u043b\u044c.","problem-payment":"\u0415\u0441\u043b\u0438 \u043f\u043b\u0430\u0442\u0435\u0436\u043d\u044b\u0439 \u0448\u043b\u044e\u0437 \u0432\u044b\u0434\u0430\u0435\u0442 \u043e\u0448\u0438\u0431\u043a\u0443 \u0438\u043b\u0438 \u0432\u044b \u043f\u0440\u043e\u0432\u0435\u043b\u0438 \u043e\u043f\u043b\u0430\u0442\u0443, \u0430 \u0431\u0430\u043b\u0430\u043d\u0441 \u043d\u0435 \u0438\u0437\u043c\u0435\u043d\u0438\u043b\u0441\u044f, \u043e\u043f\u0438\u0448\u0438\u0442\u0435 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0443 (\u043f\u0440\u0438 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e\u0441\u0442\u0438 \u0443\u043a\u0430\u0436\u0438\u0442\u0435 \u0434\u0430\u0442\u0443 \u0438 \u0432\u0440\u0435\u043c\u044f \u043f\u043b\u0430\u0442\u0435\u0436\u0430 \u0438 \u043f\u043b\u0430\u0442\u0435\u0436\u043d\u0443\u044e \u0441\u0438\u0441\u0442\u0435\u043c\u0443).","question-by-api":"\u0412\u044b \u0443\u0436\u0435 \u0432\u0438\u0434\u0435\u043b\u0438 \u043d\u0430\u0448 <a href=\"\/cabinet\/api.html\" target=\"_blank\">\u043a\u043e\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u043e\u0440 API-\u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432<\/a> \u0432 \u043b\u0438\u0447\u043d\u043e\u043c \u043a\u0430\u0431\u0438\u043d\u0435\u0442\u0435? \u0415\u0441\u043b\u0438 \u0447\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a \u0438\u043b\u0438 \u0432\u043e\u043f\u0440\u043e\u0441 \u043d\u0435 \u0441\u0432\u044f\u0437\u0430\u043d \u0441 \u043a\u043e\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u043e\u0440\u043e\u043c, \u0440\u0430\u0441\u0441\u043a\u0430\u0436\u0438\u0442\u0435 \u043e\u0431 \u044d\u0442\u043e\u043c ","question-about-service":"\u0415\u0441\u043b\u0438 \u0443 \u0432\u0430\u0441 \u0447\u0442\u043e-\u0442\u043e \u043d\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442, \u0432\u044b \u043d\u0430\u0448\u043b\u0438 \u043e\u0448\u0438\u0431\u043a\u0443 \u0438\u043b\u0438 \u0447\u0442\u043e-\u0442\u043e \u043f\u043e\u0448\u043b\u043e \u043d\u0435 \u0442\u0430\u043a, \u0434\u0430\u0439\u0442\u0435 \u043d\u0430\u043c \u0437\u043d\u0430\u0442\u044c.","cooperation":"\u0415\u0441\u043b\u0438 \u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044c \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043f\u0430\u0440\u0442\u043d\u0435\u0440\u0441\u0442\u0432\u0430, \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u0447\u0435\u0441\u0442\u0432\u0430 \u0438\u043b\u0438 \u0447\u0442\u043e-\u0442\u043e \u0432 \u044d\u0442\u043e\u043c \u0434\u0443\u0445\u0435, \u0441\u043c\u0435\u043b\u043e \u043f\u0438\u0448\u0438\u0442\u0435.","other":"\u0415\u0441\u043b\u0438 \u0443 \u0432\u0430\u0441 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441 \u043b\u044e\u0431\u043e\u0433\u043e \u0434\u0440\u0443\u0433\u043e\u0433\u043e \u0445\u0430\u0440\u0430\u043a\u0442\u0435\u0440\u0430, \u0437\u0430\u043f\u043e\u043b\u043d\u044f\u0439\u0442\u0435 \u0434\u0430\u043d\u043d\u0443\u044e \u0444\u043e\u0440\u043c\u0443."};
+    const floatingBtnFeedback = $('#btn-floating-feedback');
+    const feedbackHelper = $('#feedback-helper');
+    const $message = $('#message-feedback');
+    const $formGroupPhone = $('#feedback-form-phone');
+    const $formGroupContent = $('#feedback-form-content');
+
+
+    const toggleShowFeedback = () => {
+        feedbackHelper.toggleClass('show');
+        if (window.innerWidth > 576) return;
+        $('html, body').css({
+            'overflow-y': feedbackHelper.hasClass('show') ? 'hidden' : 'auto'
+        })
+    };
+    const $feedbackView = $('#feedback-form');
+    $(document).on('click', '#feedback-type-show', function () {
+        const $button = $(this), type = $button.attr('data-target');
+        if (type === 'problem-registration') {
+            $formGroupPhone.show();
+            $formGroupContent.hide();
+        } else {
+            $formGroupPhone.hide();
+            $formGroupContent.show();
+        }
+        $message.html(messagesTypes[type]);
+        $feedbackView.find('#feedback-type').val(type);
+        $feedbackView.find('.feedback__inside__view-header__title')
+            .text($button.attr('title'));
+        $feedbackView.addClass('show');
+    });
+    $(document).on('click', '#feedback-close-view', function () {
+        const feedbackView = $(this).closest('.feedback__inside__view');
+        if (feedbackView.is(':first-child')) toggleShowFeedback();
+        else if (feedbackView.is('#feedback-success-send')) $('.feedback__inside__view').removeClass('show');
+        else feedbackView.removeClass('show');
+    });
+    $(document).on('click', '#btn-floating-feedback', toggleShowFeedback)
+    const closeFeedback = e => {
+        if (!$(e.target).closest('#feedback-helper').length && !$(e.target).closest('#btn-floating-feedback').length) {
+            feedbackHelper.removeClass('show');
+        }
+    }
+    $(document).click(closeFeedback);
+    $('#menu-toggler').click(closeFeedback);
+</script>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-content__information">
+                <div class="footer-content__information__list">
+                    <div class="footer-content__logo" style="display:flex;">
+                        <img src="./index_files/logo-full-color-text-white.svg" alt="" class="footer-content__logo-img">
+                                        </div>
+            </div>
+            <div class="footer-content__information__list">
+                <span class="footer-content__information__list__title">Информация</span>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/tour.html">
+                        О сервисе
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/news/">
+                        Новости сервиса
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/reviews/">
+                        Отзывы о CheckTrust
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/rekvizity.html">
+                        Реквизиты
+                    </a>
+                </div>
+            </div>
+            <div class="footer-content__information__list">
+                <span class="footer-content__information__list__title">Помощь</span>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/contacts.html">
+                        Обратная связь
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/trust.html">
+                        Что такое ТРАСТ?
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/spam.html">
+                        Что такое СПАМ?
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/spam-vs-trust.html">
+                        Спам vs. Траст
+                    </a>
+                </div>
+            </div>
+            <div class="footer-content__information__list">
+                <span class="footer-content__information__list__title">Биржи ссылок</span>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/manual/gogetlinks.html">
+                        Работа с GoGetLinks
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/manual/miralinks.html">
+                        Работа с Miralinks
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/manual/sape.html">
+                        Работа с Sape.ru
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/integration/seohammer.html">
+                        Интеграция с SeoHammer
+                    </a>
+                </div>
+            </div>
+            <div class="footer-content__information__list">
+                <span class="footer-content__information__list__title">Инструменты</span>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/backlinks-checker.html">
+                        BackLinks Checker
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/baryga-checker.html">
+                        «Барыга Чекер»
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/crowd-links-checker.html">
+                        Crowd Links Checker
+                    </a>
+                </div>
+                <div class="footer-content__information__list-item">
+                    <a href="https://checktrust.ru/pulse-meter.html">
+                        «Пульс Бирж»
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-content__payments">
+        <img class="footer-content__payments-logo" src="./index_files/mastercard.svg" alt="mastercard">
+        <img class="footer-content__payments-logo" src="./index_files/mir.svg" alt="mir">
+        <img class="footer-content__payments-logo" src="./index_files/visa.svg" alt="visa">
+                <img class="footer-content__payments-logo" src="./index_files/webmoney.svg" alt="webmoney">
+        <img class="footer-content__payments-logo" src="./index_files/ym.svg" alt="yoomoney">
+        <a href="https://modulbank.ru/" class="footer-content__payments-logo">
+            <img src="./index_files/modulbank.svg" style="width: 100%" alt="modulbank">
+        </a>
+    </div>
+    <p class="footer-content__copyright">
+        © 2013-2022        Сервис CheckTrust - проверка траста сайтов и оценка качества ссылочных доноров
+    </p>
+    <p class="footer-content__copyright">
+        <a href="https://checktrust.ru/agreement.html">Пользовательское соглашение</a> <a href="https://checktrust.ru/privacy.html">Политика обработки
+            персональных данных</a>
+    </p>
+    </div>
+
+</footer>
+<script type="text/javascript">
+    var Gi = {
+        baseUrl : ''
+    };
+</script>
+<script src="./index_files/bootstrap.min.js.Без названия"></script>
+<script src="./index_files/jquery.placeholder.min.js.Без названия"></script>
+<script src="./index_files/app.js.Без названия"></script>
+<script src="./index_files/modernizr-2.6.1.min.js.Без названия"></script>
+<script src="./index_files/fuelux.wizard.js.Без названия"></script>
+<script src="./index_files/msgGrowl.js.Без названия"></script>
+<script src="./index_files/jquery.sparkline.min.js.Без названия"></script>
+
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym");
+
+    ym(23681803, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+    });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/23681803" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-47299855-1', 'checktrust.ru');
+        ga('send', 'pageview');
+
+    </script>
+<script type="text/javascript">
+/*<![CDATA[*/
+
+            var FeedbackCreateForm_recaptchapopupVerifyCallback = response => {
+                $("#FeedbackCreateForm_recaptchapopup").parent().find("input").val(response);
+                $("#FeedbackCreateForm_recaptchapopup_em_").html("");
+                }
+            var FeedbackCreateForm_recaptchapopupOnloadCallback = function() {
+            grecaptcha.render("FeedbackCreateForm_recaptchapopup", {
+                callback : FeedbackCreateForm_recaptchapopupVerifyCallback,
+                sitekey :"6Lco6ucUAAAAALUh6-N-fK41W_eZPntb7ztd3HKE"
+            });
+          };
+jQuery(function($) {
+jQuery('body').on('click','#yt8',function(){jQuery.ajax({'dataType':'json','beforeSend':() => $(this).prop("disabled",true),'success':response => {
+                                const $form = $(this).closest("form");
+                                if (response.success === true) {
+                                    $("#feedback-success-send").addClass("show");
+                                    $form[0].reset();
+                                    grecaptcha.reset(document.getElementById('FeedbackCreateForm_recaptcha'));
+                                } else if (response.success === false && response.message === "Validate error") {
+                                    for(let id in response.data) {
+                                        $form.find("#"+id).siblings(".help-block").show().text(response.data[id])
+                                            .parent().addClass("has-error");
+                                    }
+                                }
+                            },'complete':() => $(this).prop("disabled",false),'type':'POST','url':'\x2Ffeedback\x2Ffrontend\x2Ffeedback\x2Fcreate','cache':false,'data':jQuery(this).parents("form").serialize()});return false;});
+jQuery('#yw0').yiiactiveform({'validateOnChange':true,'validateOnBlur':true,'inputContainer':'.form\x2Dgroup','errorCssClass':'has\x2Derror','successCssClass':'has\x2Dsuccess','attributes':[{'id':'FeedbackCreateForm_type','inputID':'FeedbackCreateForm_type','errorID':'FeedbackCreateForm_type_em_','model':'FeedbackCreateForm','name':'type','enableAjaxValidation':false,'clientValidation':function(value, messages, attribute) {
+
+if(jQuery.trim(value)=='') {
+	messages.push("\u041d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u043e\u043b\u0435 \u00ab\u00bb.");
+}
+
+
+if(jQuery.trim(value)!='' && jQuery.inArray(value, ["problem-registration","question-about-service","cooperation","question-by-api","problem-payment","other","special-conditions"])<0) {
+	messages.push(" \u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442 \u0432 \u0441\u043f\u0438\u0441\u043a\u0435.");
+}
+
+}},{'id':'FeedbackCreateForm_email','inputID':'FeedbackCreateForm_email','errorID':'FeedbackCreateForm_email_em_','model':'FeedbackCreateForm','name':'email','enableAjaxValidation':false,'clientValidation':function(value, messages, attribute) {
+
+if(jQuery.trim(value)=='') {
+	messages.push("\u041d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u043e\u043b\u0435 \u00abE-mail\u00bb.");
+}
+
+
+
+if(jQuery.trim(value)!='' && !value.match(/^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/)) {
+	messages.push("E-mail \u043d\u0435 \u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f \u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u043c E-Mail \u0430\u0434\u0440\u0435\u0441\u043e\u043c.");
+}
+
+}},{'id':'FeedbackCreateForm_phoneNumber','inputID':'FeedbackCreateForm_phoneNumber','errorID':'FeedbackCreateForm_phoneNumber_em_','model':'FeedbackCreateForm','name':'phoneNumber','enableAjaxValidation':false,'clientValidation':function(value, messages, attribute) {
+
+if(jQuery.trim(value)=='') {
+	messages.push("\u041d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u043e\u043b\u0435 \u00ab\u041d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0430\u00bb.");
+}
+
+
+if(jQuery.trim(value)!='') {
+	
+if(!value.match(/^\s*[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/)) {
+	messages.push("\u041d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0430 \u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u0441\u043e\u0434\u0435\u0440\u0436\u0430\u0442\u044c \u0431\u0443\u043a\u0432\u044b");
+}
+
+}
+
+
+if(jQuery.trim(value)!='') {
+	
+if(value.length<11) {
+	messages.push("\u041d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0430 \u0441\u043b\u0438\u0448\u043a\u043e\u043c \u043a\u043e\u0440\u043e\u0442\u043a\u0438\u0439 (\u041c\u0438\u043d\u0438\u043c\u0443\u043c: 11 \u0441\u0438\u043c\u0432.).");
+}
+
+if(value.length>13) {
+	messages.push("\u041d\u043e\u043c\u0435\u0440 \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u0430 \u0441\u043b\u0438\u0448\u043a\u043e\u043c \u0434\u043b\u0438\u043d\u043d\u044b\u0439 (\u041c\u0430\u043a\u0441\u0438\u043c\u0443\u043c: 13 \u0441\u0438\u043c\u0432.).");
+}
+
+}
+
+}},{'id':'FeedbackCreateForm_content','inputID':'FeedbackCreateForm_content','errorID':'FeedbackCreateForm_content_em_','model':'FeedbackCreateForm','name':'content','enableAjaxValidation':false,'clientValidation':function(value, messages, attribute) {
+
+if(jQuery.trim(value)=='') {
+	messages.push("\u041d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u043e\u043b\u0435 \u00ab\u0421\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u0435\u00bb.");
+}
+
+}},{'id':'FeedbackCreateForm_recaptcha','inputID':'FeedbackCreateForm_recaptcha','errorID':'FeedbackCreateForm_recaptcha_em_','model':'FeedbackCreateForm','name':'recaptcha','enableAjaxValidation':false,'clientValidation':function(value, messages, attribute) {
+
+if(jQuery.trim(value)=='') {
+	messages.push("\u041d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043f\u043e\u043b\u0435 \u00abRecaptcha\u00bb.");
+}
+
+}}],'errorCss':'error'});
+});
+/*]]>*/
+</script>
+
+
+<div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" src="./index_files/bframe.html" name="c-699400go6x0e" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div><div></div></body><style id="igor_ext_nofollow">a[rel~='nofollow'],a[rel~='sponsored'],a[rel~='ugc']{outline:.14em dotted red !important;outline-offset:.2em;}a[rel~='nofollow'] img,a[rel~='sponsored'] img,a[rel~='ugc'] img{outline:2px dotted red !important;outline-offset:.2em;}</style></html>

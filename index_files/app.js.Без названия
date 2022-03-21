@@ -1,0 +1,15 @@
+$(document).ready(function ($) {
+
+    $('body').on('click', '#forgot-password', function () {
+        $('.login-page__wrapper-forgot').toggleClass('login-page__wrapper-forgot__active')
+    });
+
+    $('#form-trigger').keyup(function () {
+        $('#create-account-button').removeAttr('disabled');
+
+    });
+
+    $('input, textarea').placeholder();
+
+});
+
